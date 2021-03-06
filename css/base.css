@@ -10,20 +10,20 @@
 
 .register-form-title > label {
   font-size: 22px;
-  
 }
 
 .error_description:before {
   content: "" !important;
 }
 
-.mdl-button, .register-form {
-border-radius: 6px;
+.mdl-button,
+.register-form {
+  border-radius: 6px;
 }
 
 .register-form {
   box-shadow: none;
-  border: #DDDDDD 1px solid;
+  border: #dddddd 1px solid;
 }
 
 .footer-buttons {
@@ -46,13 +46,13 @@ border-radius: 6px;
 
 .footer-buttons a {
   border-radius: 2px;
-font-weight: 600;
+  font-weight: 600;
   color: #909090;
   display: inline-block;
   margin-top: -6px;
   padding: 6px 16px;
-  -webkit-transition: background .2s;
-  transition: background .2s;
+  -webkit-transition: background 0.2s;
+  transition: background 0.2s;
 }
 
 .progress {
@@ -74,7 +74,7 @@ font-weight: 600;
 
 @media (max-width: 760px) {
   .mdl-layout.mdl-js-layout {
-    background-color: #FFFFFF !important;
+    background-color: #ffffff !important;
   }
 
   .progress {
@@ -89,7 +89,7 @@ font-weight: 600;
 
   .register-form {
     border: none;
-   flex: 1;
+    flex: 1;
     padding: 25px;
   }
 
@@ -98,11 +98,11 @@ font-weight: 600;
   }
 
   .register-container {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      box-sizing: border-box;
-      display: flex;
-flex-direction: column;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
 }
