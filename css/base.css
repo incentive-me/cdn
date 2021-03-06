@@ -6,11 +6,10 @@ html {
   width: 100%;
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
-  background-color: #efefef;
 }
 
 .logo {
-  max-height: 70px;
+  max-height: 170px;
   margin-right: 16px;
 }
 
