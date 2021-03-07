@@ -1,28 +1,31 @@
-$(".mdl-textfield__input").focus(function () {
-  if (!this.value) {
-    $(this).prop('required', true);
-    $(this).parent().addClass('is-invalid');
-  }
-});
-$(".mdl-button[type='submit']").click(function (event) {
-  $(this).siblings(".mdl-textfield").addClass('is-invalid');
-  $(this).siblings(".mdl-textfield").children(".mdl-textfield__input").prop('required', true);
-});
-$("#changePasswordVisibility").click(function () {
-  var inputType = $('input#password').attr('type');
-  if (inputType === 'text') {
-    $('input#password').prop('type', 'password');
-    $('input#confirmation').prop('type', 'password');
-    $(this).text('visibility');
-  } else {
-    $('input#password').prop('type', 'text');
-    $('input#confirmation').prop('type', 'text');
-    $(this).text('visibility_off');
-  }
-});
-
 var password = document.getElementById("password")
   , confirm_password = document.getElementById("confirmation");
+
+var errorContainer, errorDetail;
+
+function showPassword(e) {
+  if (e.target.checked) {
+    password.type = 'text';
+    confirm_password.type = 'text';
+    $(this).text('visibility');
+  } else {
+    password.type = 'password';
+    confirm_password.type = 'password';
+  }
+}
+
+function validateEmail() {
+  const email = document.getElementById('email');
+  const emailInfo = document.getElementById('email-info');
+  const emailError = document.getElementById('email-error');
+  if (email.value) {
+    emailInfo.style.display = 'none';
+    emailError.style.display = 'flex';    
+  } else {
+    emailInfo.style.display = 'flex';
+    emailError.style.display = 'none';    
+  }
+}
 
 function validatePassword() {
   if (password.value != confirm_password.value) {
@@ -31,8 +34,6 @@ function validatePassword() {
     confirm_password.setCustomValidity('');
   }
 }
-
-var errorContainer, errorDetail
 
 function register(e) {
   var progress = document.getElementById('progress');
