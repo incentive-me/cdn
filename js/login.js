@@ -5,7 +5,6 @@ function login(e) {
   var progress = document.getElementById('progress');
   progress.style.visibility = 'visible';
   e.preventDefault();
-  document.getElementById('username').value = document.getElementById('email').value;
   if (errorContainer) {
     errorContainer.style.display = 'none';
   }
