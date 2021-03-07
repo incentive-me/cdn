@@ -26,6 +26,8 @@ html {
 .container {
   max-width: 740px;
   width: 100%;
+  padding: 50px;
+  margin: auto;
 }
 
 .form {
@@ -44,17 +46,19 @@ html {
 .form-title {
   display: flex;
   flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .form-title > label {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 4px;
 }
 
 .form-title > span {
   color: grey;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .error-info {
@@ -79,13 +83,15 @@ a, a:hover, a:focus {
 
 
 .logo {
-  max-height: 70px;
+  max-width: 28px;
   margin-right: 16px;
+  margin-bottom: 10px;
 }
 
 .logo-title {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .error_description:before {
