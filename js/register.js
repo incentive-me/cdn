@@ -66,10 +66,10 @@ function register(e) {
         errorDetail = document.getElementById(returnObject.warning);
         if (!errorDetail) {
           errorDetail = document.getElementById('invalid_other');
-        }
-        if (returnObject.error_description) {
-          errorDetail = document.getElementById('error_description');
-          errorDetail.innerText = returnObject.error_description;
+          if (returnObject.error_description) {
+            errorDetail = document.getElementById('error_description');
+            errorDetail.innerText = returnObject.error_description;
+          }
         }
         errorContainer.style.display = 'flex';
         errorDetail.style.display = 'block';
