@@ -36,8 +36,7 @@ function validatePassword() {
 }
 
 function register(e) {
-  var progress = document.getElementById('progress');
-  progress.style.visibility = 'visible';
+  setLoading(true);
   e.preventDefault();
   document.getElementById('username').value = document.getElementById('email').value;
   if (errorContainer) {
@@ -73,7 +72,7 @@ function register(e) {
         }
         errorContainer.style.display = 'flex';
         errorDetail.style.display = 'block';
-        progress.style.visibility = 'hidden';
+        setLoading(false);
       }
     } else {
       document.location = request.responseURL;

@@ -2,8 +2,7 @@ var password = document.getElementById("password");
 var errorContainer, errorDetail;
 
 function login(e) {
-  var progress = document.getElementById('progress');
-  progress.style.visibility = 'visible';
+  setLoading(true);
   e.preventDefault();
   if (errorContainer) {
     errorContainer.style.display = 'none';
@@ -37,7 +36,7 @@ function login(e) {
         }
         errorContainer.style.display = 'flex';
         errorDetail.style.display = 'block';
-        progress.style.visibility = 'hidden';
+        setLoading(false);
       }
     } else {
       document.location = request.responseURL;
