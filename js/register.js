@@ -71,7 +71,7 @@ function register(e) {
           errorDetail = document.getElementById('error_description');
           errorDetail.innerText = returnObject.error_description;
         }
-        errorContainer.style.display = 'block';
+        errorContainer.style.display = 'flex';
         errorDetail.style.display = 'block';
         progress.style.visibility = 'hidden';
       }
