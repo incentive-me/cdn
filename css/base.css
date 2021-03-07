@@ -13,6 +13,8 @@ html {
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   background-color: #f7f7f7;
+  display: flex;
+  align-items: center;
 }
 
 .decoration {
@@ -23,14 +25,13 @@ html {
 .container {
   max-width: 740px;
   margin: auto;
-  padding: 8% 0 0;
 }
 
 .form {
   background: #FFFFFF;
   padding: 45px;
   border: #dddddd 1px solid;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .form form {
@@ -126,8 +127,8 @@ a, a:hover, a:focus {
   margin-left: -45px;
   margin-top: -45px;
   margin-bottom: 40px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .input-helper {
