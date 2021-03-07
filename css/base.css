@@ -15,6 +15,7 @@ html {
   background-color: #f7f7f7;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .decoration {
@@ -146,6 +147,10 @@ a, a:hover, a:focus {
 }
 
 @media (max-width: 760px) {
+  body,
+  html {
+    background-color: #ffffff;
+  }
   .decoration {
     display: none;
   }
