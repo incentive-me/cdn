@@ -1,0 +1,106 @@
+.container {
+  max-width: 480px;
+  width: 100%;
+}
+
+.signup-or-separator {
+  position: relative;
+  height: 34px;
+  text-align: center;
+  background: none;
+  margin-bottom: 10px;
+}
+
+.social-login-buttons {
+  margin-top: 16px;
+}
+
+.signup-or-separator .text {
+  display: inline-block;
+  padding: 8px;
+  margin: 0;
+  background-color: #fff;
+}
+
+.linkedin {
+  color: #fff !important;
+  background-color: #007bb6 !important;
+}
+
+.facebook {
+  color: #fff !important;
+  background-color: #294786 !important;
+}
+
+.twitter {
+  color: #fff !important;
+  background-color: #00aced !important;
+}
+
+.github {
+  color: #fff !important;
+  background-color: #303030 !important;  
+}
+
+.google {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-buttons > a {
+  margin-bottom: 10px;
+  color: #444;
+  background-color: #ffffff;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signup-or-separator hr {
+  margin: -15px auto 10px auto;
+  border: 1px solid #dce0e0;
+}
+
+@media (max-width: 500px) {
+  body,
+  html {
+    background-color: #ffffff;
+  }
+  .decoration {
+    display: none;
+  }
+
+  .mdl-layout.mdl-js-layout {
+    background-color: #ffffff !important;
+  }
+
+  .progress {
+    margin-right: -25px;
+    margin-left: -25px;
+    margin-top: -25px;
+    margin-bottom: 20px;
+  }
+
+  .form {
+    border: none;
+    flex: 1;
+    padding: 25px;
+  }
+
+  .footer-buttons {
+    margin: 8px;
+  }
+
+  .container {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+}
