@@ -1,6 +1,16 @@
 var password = document.getElementById("password");
 var errorContainer, errorDetail;
 
+var countTry = 0;
+var passwordTry = document.getElementById("password-try");
+
+function validateTry() {
+  countTry++;
+  if (countTry > 2) {
+    passwordTry.style.display = 'flex';
+  }
+}
+
 function login(e) {
   setLoading(true);
   e.preventDefault();
@@ -37,6 +47,7 @@ function login(e) {
         errorContainer.style.display = 'flex';
         errorDetail.style.display = 'block';
         setLoading(false);
+        validateTry();
       }
     } else {
       document.location = request.responseURL;
