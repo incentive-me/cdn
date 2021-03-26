@@ -1,6 +1,9 @@
 var password = document.getElementById("password")
   , confirm_password = document.getElementById("confirmation");
 
+var countTry = 0;
+var passwordTry = document.getElementById("password-try");
+
 var errorContainer, errorDetail;
 
 function showPassword(e) {
@@ -24,6 +27,13 @@ function validateEmail() {
   } else {
     emailInfo.style.display = 'flex';
     emailError.style.display = 'none';    
+  }
+}
+
+function validateTry() {
+  countTry++;
+  if (countTry > 2) {
+    passwordTry.style.display = 'flex';
   }
 }
 
@@ -73,6 +83,7 @@ function register(e) {
         errorContainer.style.display = 'flex';
         errorDetail.style.display = 'block';
         setLoading(false);
+        validateTry();
       }
     } else {
       document.location = request.responseURL;
