@@ -27,7 +27,7 @@ function validateEmail() {
 
   xhr.onload = function() {
     setLoading(false);
-    if (xhr.status != 200 || xhr.response) {
+    if (xhr.status !== 200 || xhr.response == 'true') {
       emailInfo.style.display = 'none';
       emailError.style.display = 'flex';    
     } else {
