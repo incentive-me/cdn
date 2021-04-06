@@ -15,16 +15,26 @@ function showPassword(e) {
 }
 
 function validateEmail() {
+  setLoading(true);
   const email = document.getElementById('email');
   const emailInfo = document.getElementById('email-info');
   const emailError = document.getElementById('email-error');
-  if (email.value) {
-    emailInfo.style.display = 'none';
-    emailError.style.display = 'flex';    
-  } else {
-    emailInfo.style.display = 'flex';
-    emailError.style.display = 'none';    
-  }
+
+  let xhr = new XMLHttpRequest();
+
+  xhr.open('GET', `https://api.incentive.me/accounts/v1/exists/${email.value}`);
+  xhr.send();
+
+  xhr.onload = function() {
+    setLoading(false);
+    if (xhr.status != 200 || xhr.response) {
+      emailInfo.style.display = 'none';
+      emailError.style.display = 'flex';    
+    } else {
+      emailInfo.style.display = 'flex';
+      emailError.style.display = 'none';    
+    }
+  };
 }
 
 function validatePassword() {
