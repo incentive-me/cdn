@@ -29,10 +29,12 @@ function validateEmail() {
     setLoading(false);
     if (xhr.status !== 200 || xhr.response == 'true') {
       emailInfo.style.display = 'none';
-      emailError.style.display = 'flex';    
+      emailError.style.display = 'flex';
+      email.setCustomValidity("Informe um e-mail válido");
     } else {
       emailInfo.style.display = 'flex';
-      emailError.style.display = 'none';    
+      emailError.style.display = 'none';
+      email.setCustomValidity("");
     }
   };
 }
