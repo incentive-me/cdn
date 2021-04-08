@@ -25,7 +25,7 @@ function validateEmail() {
   xhr.open('GET', `https://api.incentive.me/accounts/v1/exists/${email.value}`);
   xhr.send();
 
-  xhr.onload = function() {
+  xhr.onload = function () {
     setLoading(false);
     if (xhr.status !== 200 || xhr.response == 'true') {
       emailInfo.style.display = 'none';
@@ -89,8 +89,16 @@ function register(e) {
     } else {
       document.location = request.responseURL;
     }
-
   }
+
+  request.onerror = function (a) {
+    errorContainer = document.getElementById('error-container');
+    errorDetail = document.getElementById('invalid_other');
+    errorContainer.style.display = 'flex';
+    errorDetail.style.display = 'block';
+    setLoading(false);
+  }
+
   request.open("POST", e.target.action);
   request.send(new FormData(e.target));
 }
