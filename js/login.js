@@ -54,6 +54,15 @@ function login(e) {
     }
 
   }
+
+  request.onerror = function (a) {
+    errorContainer = document.getElementById('error-container');
+    errorDetail = document.getElementById('invalid_other');
+    errorContainer.style.display = 'flex';
+    errorDetail.style.display = 'block';
+    setLoading(false);
+  }
+
   request.open("POST", e.target.action);
   request.send(new FormData(e.target));
 }
@@ -64,7 +73,7 @@ function showPassword(e) {
     confirm_password.type = 'text';
     $(this).text('visibility');
   } else {
-   word.type = 'password';
+    word.type = 'password';
     confirm_password.type = 'password';
   }
 }
