@@ -104,3 +104,22 @@
     flex-direction: column;
   }
 }
+
+.matter-textfield-outlined {
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+}
+
+.matter-textfield-outlined > input,
+.matter-textfield-outlined > textarea {
+  border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.2);
+  padding: 12px;
+  font-weight: 500;
+  border-top-color: transparent;
+}
+
+.matter-textfield-outlined > input:not(:focus):placeholder-shown + span,
+.matter-textfield-outlined > textarea:not(:focus):placeholder-shown + span {
+  line-height: 60px;
+}

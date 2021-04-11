@@ -212,7 +212,8 @@ a, a:hover, a:focus {
 .matter-textfield-outlined > input,
 .matter-textfield-outlined > textarea {
   border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.2);
-  padding: 5px 8px 5px;
+  padding: 5px 8px;
+  font-weight: 500;
   border-top-color: transparent;
 }
 
