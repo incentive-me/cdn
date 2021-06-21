@@ -25,6 +25,8 @@ function validateEmail() {
   if (email.value) {
     xhr.open('GET', `https://api.incentive.me/accounts/v1/exists/${email.value}`);
     xhr.send();
+  } else {
+    setLoading(false);
   }
 
   xhr.onload = function () {
