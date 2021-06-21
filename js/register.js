@@ -22,8 +22,10 @@ function validateEmail() {
 
   let xhr = new XMLHttpRequest();
 
-  xhr.open('GET', `https://api.incentive.me/accounts/v1/exists/${email.value}`);
-  xhr.send();
+  if (email.value) {
+    xhr.open('GET', `https://api.incentive.me/accounts/v1/exists/${email.value}`);
+    xhr.send();
+  }
 
   xhr.onload = function () {
     setLoading(false);
