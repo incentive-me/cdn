@@ -48,6 +48,8 @@ function login(e) {
         errorDetail.style.display = 'block';
         setLoading(false);
         validateTry();
+      } else {
+        document.location = request.responseURL;
       }
     } else {
       document.location = request.responseURL;

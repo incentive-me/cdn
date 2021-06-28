@@ -89,6 +89,8 @@ function register(e) {
         errorContainer.style.display = 'flex';
         errorDetail.style.display = 'block';
         setLoading(false);
+      } else {
+        document.location = request.responseURL;
       }
     } else {
       document.location = request.responseURL;
