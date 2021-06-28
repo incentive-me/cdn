@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Fazer login na conta Incentive.me</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" />
+    <link rel="stylesheet" href="https://res.cloudinary.com/finnhvman/raw/upload/matter/matter-0.2.2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.25/css/base.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.25/css/login.min.css" />
+    <!--     <link rel="stylesheet" href="/css/base.css"/> -->
+    <!--     <link rel="stylesheet" href="/css/login.css"/> -->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn/favicon.ico" />
+    <script src="https://kit.fontawesome.com/b30fd5fea3.js" crossorigin="anonymous"></script>    
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="sso-container" class="form" style="display: none;">
+        <div class="progress"><progress  id="progress" class="matter-progress-linear" style="visibility: hidden;"></progress></div>
+        <div id="after-progress">
+          <div class="logo-title">
+            <img class="logo" src="https://www.incentive.me/images/logo.svg"/>
+            <div class="form-title">
+              <label>Fazer login com SSO</label>
+              <span>Insira seu e-mail de trabalho abaixo e faremos seu login por meio de seu provedor de SSO.</span>
+            </div>
+          </div>
+          <form role="form" onsubmit="ssoLogin(event);">
+            <div class="form-content">
+              <div class="form-row" style="margin-top: 12px;">
+                <label class="matter-textfield-outlined" style="margin-right: 5px">
+                  <input type="email" id="sso-email" name="sso-email" autofocus="autofocus" required placeholder=" " automcomplete="email" />
+                  <span>E-mail</span>
+                </label>
+              </div>
+            </div>
+            
+            <div id="sso-error-container" class="error-info error"  style="display: none;">
+              <svg aria-hidden="true" style="flex-shrink: 0;margin-right: 5px;" fill="currentColor" focusable="false" width="16px" height="16px" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+              </svg>
+              <p style="margin: 0;">
+                Parece que sua empresa não tem o SSO habilitado. Em vez disso, tente fazer login com sua senha.
+              </p>
+            </div>
+
+            <div class="form-row">
+              <button type="button" class="matter-button-text matter-secondary" onclick="cancelSSO()">Voltar</button>
+              <span style="flex: 1;"></span>
+              <button type="submit" class="matter-button-contained">Continuar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="main-container" class="form">
+        <div class="progress"><progress  id="progress" class="matter-progress-linear" style="visibility: hidden;"></progress></div>
+        <div id="after-progress">
+          <div class="logo-title">
+            <img class="logo" src="https://www.incentive.me/images/logo.svg"/>
+            <div class="form-title">
+              <label>Fazer login</label>
+              <span>Use sua conta Incentive.me</span>
+            </div>
+          </div>
+          <form role="form" th:action="${action}" method="post" onsubmit="login(event);">
+            <div class="form-content">
+              <div class="form-row" style="margin-top: 12px;">
+                <label class="matter-textfield-outlined" style="margin-right: 5px">
+                  <input type="email" id="username" name="username" autofocus="autofocus" required placeholder=" " automcomplete="email" />
+                  <span>E-mail</span>
+                </label>
+              </div>
+
+              <div class="form-row" style="margin-top: 12px;">
+                <label class="matter-textfield-outlined" style="margin-right: 5px">
+                  <input type="password" id="password" name="password" required placeholder=" " autocomplete="current-password" />
+                  <span>Senha</span>
+                </label>
+              </div>
+
+              <div class="form-row" style="margin-top: 8px;">
+                <label class="matter-checkbox">
+                  <input type="checkbox" onchange="showPassword(event);" />
+                  <span style="line-height: 1;">Mostrar senha</span>
+                </label>
+                <span style="flex: 1;"></span>
+                <button  th:if="${allowForgotPassword}" type="button" class="matter-button-text matter-secondary" th:onclick="location.href=[[${forgotPasswordAction}]]" style="line-height: 1;">Esqueceu a senha?</button>
+              </div>
+
+              <div id="error-container" class="error-info error"  style="display: none;">
+                <svg aria-hidden="true" style="flex-shrink: 0;margin-right: 5px;" fill="currentColor" focusable="false" width="16px" height="16px" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+                </svg>
+                <p style="margin: 0; display: none;" id="invalid_user">
+                  Usuário ou senha incorretos. Tente novamente ou clique em &quot;Esqueceu a senha?&quot; para redefini-la.
+                </p>
+                <p style="margin: 0; display: none;" id="invalid_other">
+                  Erro desconhecido. Tente novamente.
+                </p>
+                <p style="margin: 0; display: none;" id="error_description"></p>
+              </div>
+
+              <div id="password-try" class="error-info error"  style="display: none;color: #d99517;">
+                <svg aria-hidden="true" style="flex-shrink: 0;margin-right: 5px;" fill="currentColor" focusable="false" width="16px" height="16px" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+                </svg>
+                <p style="margin: 0;" id="invalid_user">
+                  Cuidado! sua conta pode ser bloqueada por excesso de tentativas de login. Caso sua conta seja bloqueada, você receberá um e-mail com instruções.
+                </p>
+              </div>
+            </div>
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" th:name="client_id" th:value="${param.client_id}"/>
+
+            <span th:if="${allowPasswordless}" style="font-size: 14px;margin-top: 24px;">
+              Use o WebAuthn para fazer login usando impressão digital ou uma chave de segurança USB. <a class="matter-link"th:href="${passwordlessAction}" style="font-weight: 500;">Saiba mais</a>.
+            </span>
+
+            <div class="form-row">
+              <button  th:if="${allowRegister}" type="button" class="matter-button-text matter-secondary" th:onclick="location.href=[[${registerAction}]];setLoading(true);">Criar conta</button>
+              <span style="flex: 1;"></span>
+              <button type="submit" class="matter-button-contained">Continuar</button>
+            </div>
+          </form>
+          
+          <div th:if="${socialProviders and !socialProviders.empty}" class="social-login-buttons">
+            <div class="signup-or-separator">
+              <h6 class="text">ou fazer login com</h6>
+              <hr/>
+            </div>     
+            <div class="social-buttons"  style="display: grid;grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));gap: 10px;">
+              <a id="sso-button" href="#" onclick="startSSO();" class="matter-button-outlined matter-secondary google" style="padding: 10px;display: flex;flex-direction: column;height: auto;padding-top: 20px;display: none;">
+                <i class="fas fa-lg fa-key" style="margin-bottom: 5px;"></i><span>SSO</span>
+              </a>
+              <a th:if="${socialProvider.getType()} != 'oauth2-generic-am-idp'"
+                 th:href="${authorizeUrls.get(socialProvider.getId())}"
+                 th:class="'matter-button-outlined  matter-secondary ' + ${socialProvider.getType()}"
+                 th:each="socialProvider : ${socialProviders}"
+                 style="padding: 10px;display: flex;flex-direction: column;height: auto;padding-top: 20px;">
+                <svg th:if="${socialProvider.getType()} == 'google'" viewBox="0 0 533.5 544.3" width="18" height="18" style="margin-right: 5px;">
+                  <path d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z" fill="#4285f4"/>
+                  <path d="M272.1 544.3c73.4 0 135.3-24.1 180.4-65.7l-87.7-68c-24.4 16.6-55.9 26-92.6 26-71 0-131.2-47.9-152.8-112.3H28.9v70.1c46.2 91.9 140.3 149.9 243.2 149.9z" fill="#34a853"/>
+                  <path d="M119.3 324.3c-11.4-33.8-11.4-70.4 0-104.2V150H28.9c-38.6 76.9-38.6 167.5 0 244.4l90.4-70.1z" fill="#fbbc04"/>
+                  <path d="M272.1 107.7c38.8-.6 76.3 14 104.4 40.8l77.7-77.7C405 24.6 339.7-.8 272.1 0 169.2 0 75.1 58 28.9 150l90.4 70.1c21.5-64.5 81.8-112.4 152.8-112.4z" fill="#ea4335"/>
+                </svg>
+                <i th:if="${socialProvider.getType()} != 'google'" th:class="'fab fa-lg fa-' + ${socialProvider.getType()}" style="margin-bottom: 5px;"></i><span th:text="${socialProvider.getName()}"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <ul class="footer-buttons">
+          <li><a href="mailto:contato@incentive.me?subject=Ajuda no login" target="_blank">Ajuda</a></li>
+          <li><a href="https://api.incentive-me.com/bucket/privacy.pdf" target="_blank">Privacidade</a></li>
+          <li><a href="https://www.incentive.me/termosdeuso.html" target="_blank">Termos</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+        const authorizeUrls = /*[[${authorizeUrls}]]*/ 'default'; 
+        const socialProviders = /*[[${socialProviders}]]*/ 'default';
+      /*]]>*/
+      const ssoProviders = socialProviders ? socialProviders.filter(item => item.type == "oauth2-generic-am-idp") : [];
+      const ssoButton = document.getElementById('sso-button');
+      const ssoContainer = document.getElementById('sso-container');
+      const mainContainer = document.getElementById('main-container');
+      const ssoErrorContainer = document.getElementById('sso-error-container');
+
+      if (ssoProviders.length > 0) {
+        ssoButton.style.display = 'flex';
+      }
+      
+      function cancelSSO() {
+        mainContainer.style.display = 'block';
+        ssoContainer.style.display = 'none';
+      }
+      
+      function startSSO() {
+        mainContainer.style.display = 'none';
+        ssoContainer.style.display = 'block';
+      }
+      
+      function ssoLogin(e) {
+        setLoading(true);
+        e.preventDefault();
+        const ssoEmail = document.getElementById('sso-email');
+        const domain = String(ssoEmail.value.split('@')[1]).toLowerCase();
+        const ssoProvider = ssoProviders.find(item => item.name == domain);
+        if (ssoProvider) {
+          document.location = authorizeUrls[ssoProvider.id];
+        } else {
+          setLoading(false);
+          ssoErrorContainer.style.display = 'flex';
+        }
+      }
+	</script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.23/js/base.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.23/js/login.min.js"></script>
+  </body>
+</html>
