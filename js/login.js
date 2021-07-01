@@ -73,9 +73,8 @@ function showPassword(e) {
   if (e.target.checked) {
     password.type = 'text';
     confirm_password.type = 'text';
-    $(this).text('visibility');
   } else {
-    word.type = 'password';
+    password.type = 'password';
     confirm_password.type = 'password';
   }
 }

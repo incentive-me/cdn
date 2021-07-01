@@ -7,7 +7,6 @@ function showPassword(e) {
   if (e.target.checked) {
     password.type = 'text';
     confirm_password.type = 'text';
-    $(this).text('visibility');
   } else {
     password.type = 'password';
     confirm_password.type = 'password';
