@@ -19,6 +19,8 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn/favicon.ico" />
     <script src="https://kit.fontawesome.com/b30fd5fea3.js" crossorigin="anonymous"></script>    
+
+    <script th:if="${bot_detection_plugin == 'google-recaptcha-v3-am-bot-detection'}" th:src="${'https://www.google.com/recaptcha/api.js?render=' + bot_detection_configuration.siteKey}"></script>
   </head>
 
   <body>
@@ -67,21 +69,21 @@
             <img class="logo" src="https://www.incentive.me/images/logo.svg"/>
             <div class="form-title">
               <label>Fazer login</label>
-              <span>Use sua conta Incentive.me</span>
+              <span>Prosseguir para <span th:text="${client.name}"></span></span>
             </div>
           </div>
           <form role="form" th:action="${action}" method="post" onsubmit="login(event);">
             <div class="form-content">
               <div class="form-row" style="margin-top: 12px;">
                 <label class="matter-textfield-outlined" style="margin-right: 5px">
-                  <input type="email" id="username" name="username" autofocus="autofocus" required placeholder=" " automcomplete="email" />
+                  <input type="email" id="username" name="username" th:autofocus="${identifierFirstLoginEnabled ? 'false' : 'autofocus'}" required placeholder=" " automcomplete="email" th:value="${identifierFirstLoginEnabled ? param.username : ''}" th:readonly="${identifierFirstLoginEnabled}"  pattern="^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"/>
                   <span>E-mail</span>
                 </label>
               </div>
 
               <div class="form-row" style="margin-top: 12px;">
                 <label class="matter-textfield-outlined" style="margin-right: 5px">
-                  <input type="password" id="password" name="password" required placeholder=" " autocomplete="current-password" />
+                  <input type="password" id="password" name="password" required placeholder=" " autocomplete="current-password" th:autofocus="${identifierFirstLoginEnabled ? 'autofocus' : 'false'}" />
                   <span>Senha</span>
                 </label>
               </div>

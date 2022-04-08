@@ -1,0 +1,79 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Solicitação de acesso Incentive.me</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{assets/material/material.blue_grey-blue.min.css}"/>
+    <link rel="stylesheet" th:href="@{assets/material/material.icons.css}"/>
+    <link rel="stylesheet" th:href="@{assets/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{assets/css/access_confirmation.css}"/>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" />
+    <link href="https://res.cloudinary.com/finnhvman/raw/upload/matter/matter-0.2.2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.11/css/base.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.11/css/login.min.css"/>
+    <!--     <link rel="stylesheet" href="/css/base.css"/> -->
+    <!--     <link rel="stylesheet" href="/css/register.css"/> -->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn/favicon.ico" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="form">
+        <div class="form-title">
+          <label>Permissões solicitadas</label>
+          <span style="font-weight: normal"><span style="font-weight: bold" th:text="${client.clientName}"></span> está solicitando permissões para acessar sua conta</span>
+        </div>
+        <form role="form" th:id="confirmationForm" th:action="${action}" method="post">
+          <div class="permissions">
+            <p>Você está permitindo que este app faça o seguinte:</p>
+            <div class="permission" th:each="scope : ${scopes}">
+              <div class="permission-logo">
+                <i class="fa fa-check"></i>
+              </div>
+              <div class="permission-info">
+                <h3><span th:text="(${scope.name}) ? ${scope.name} : ${scope.key}"></span></h3>
+                <!--<h3><span th:text="(${scope.name}) ? ${scope.name} : ${scope.key}"></span> (<span th:text="${scope.key}"></span>)</h3>-->
+                <p th:text="${scope.description}"></p>
+                <input type="hidden" th:name="'scope.'+${scope.key}" value="true"/>
+              </div>
+            </div>
+            <div class="permissions-disclaimer">
+              <small>Ao aceitar essas permissões, você permite que este aplicativo use seus dados de acordo com seus termos de serviço e políticas de privacidade.</small>
+            </div>
+          </div>
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+          <div class="form-row">
+            <button type="submit" name="user_oauth_approval" value="false" class="matter-button-text matter-secondary">Cancelar</button>
+            <span style="flex: 1;"></span>
+            <button type="submit" name="user_oauth_approval" value="true" class="matter-button-contained">Permitir</button>
+          </div>
+        </form>
+<!--        <div class="error-info">
+          Detalhe do erro:
+          <span th:if="${error}" class="error" th:text="${error}"></span>
+          <span th:if="${error_description}" class="error" th:text="${error_description}"></span>
+        </div>-->
+      </div>
+
+      <footer>
+        <ul class="footer-buttons">
+          <li><a href="http://ajuda.incentive.me" target="_blank">Ajuda</a></li>
+          <li><a href="https://policies.incentive.me/privacy" target="_blank">Privacidade</a></li>
+          <li><a href="https://policies.incentive.me/tos" target="_blank">Termos</a></li>
+        </ul>
+      </footer>
+    </div>
+    <script th:src="@{assets/material/material.min.js}"></script>
+  </body>
+</html>

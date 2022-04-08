@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ativar sua conta Incentive.me</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" />
+    <link href="https://res.cloudinary.com/finnhvman/raw/upload/matter/matter-0.2.2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.11/css/base.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.11/css/register.min.css"/>
+    <!--     <link rel="stylesheet" href="/css/base.css"/> -->
+    <!--     <link rel="stylesheet" href="/css/register.css"/> -->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn/favicon.ico" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="form" th:if="${error == null && success == null}">
+        <div class="progress"><progress  id="progress" class="matter-progress-linear" style="visibility: hidden;"></progress></div>
+        <div id="after-progress">
+          <div class="logo-title">
+            <img class="logo" src="https://www.incentive.me/images/logo.svg" />
+            <div class="form-title">
+              <label>Ola, <span th:text="${user.firstName}">Nome</span></label>
+              <span>Crie uma senha para ativar sua conta</span>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 0px;">
+            <form role="form" th:action="${action}" method="post" onsubmit="register(event)">
+              <div class="form-content">
+                <div class="form-row" style="margin-top: 14px;">
+                  <label class="matter-textfield-outlined" style="margin-right: 5px">
+                    <input type="password" id="password" name="password" required onchange="validatePassword();" placeholder=" " autocomplete="new-password" />
+                    <span>Senha</span>
+                  </label>
+                  <label class="matter-textfield-outlined" style="margin-left: 5px">
+                    <input type="password" id="confirmation" name="confirmation" required onkeyup="validatePassword();" placeholder=" " autocomplete="new-password" />
+                    <span>Confirmar</span>
+                  </label>
+                </div>
+                <div class="input-helper">
+                  Use oito ou mais caracteres com uma combinação de letras maiúsculas e minúsculas, números e símbolos.
+                </div>
+
+                <div class="form-row" style="margin-top: 8px;">
+                  <label class="matter-checkbox">
+                    <input type="checkbox" onchange="showPassword(event);" />
+                    <span>Mostrar senha</span>
+                  </label>
+                </div>
+              </div>
+
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+              <input type="hidden" name="token" id="token" th:value="${token}"/>
+
+              <div id="error-container" class="error-info error" style="display: none;">
+                <svg aria-hidden="true" style="flex-shrink: 0;margin-right: 5px;" fill="currentColor" focusable="false" width="16px" height="16px" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+                </svg>
+                <p style="margin: 0; display: none;" id="invalid_password_value">
+                  Senha inválida. Use oito ou mais caracteres com uma combinação de letras maiúsculas e minúsculas, números e símbolos.
+                </p>
+                <p style="margin: 0; display: none;" id="error_description"></p>
+              </div>
+
+              <div class="form-row">
+                <span style="display: flex; flex: 1;"></span>
+                <button type="submit" class="matter-button-contained">Continuar</button>
+              </div>
+            </form>
+            <img src="https://www.incentive.me/images/rede1.png" class="decoration"  style="margin-left: 40px;" />
+          </div>
+        </div>
+      </div>
+
+      <div th:if="${success}" class="form">
+        <div class="form-title">
+          <label>Conta confirmada com sucesso</label>
+          <p>
+            Obrigado por ativar sua conta. Agora você já pode fazer login.
+          </p>
+        </div>
+      </div>
+
+      <div th:if="${error}" class="form">
+        <div class="form-title">
+          <label>Erro na ativação</label>
+          <p>Por favor, tente novamente ou entre em contato solicitando ajuda.</p>
+        </div>
+        <div class="error-info">
+          Detalhe do erro:
+          <span th:text="*{error_description}?: ${error}" class="error"></span>
+        </div>
+      </div>
+
+      <footer>
+        <ul class="footer-buttons">
+          <li><a href="http://ajuda.incentive.me" target="_blank">Ajuda</a></li>
+          <li><a href="https://policies.incentive.me/privacy" target="_blank">Privacidade</a></li>
+          <li><a href="https://policies.incentive.me/tos" target="_blank">Termos</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <script defer src="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.11/js/base.min.js"></script>
+    <script>
+      var password = document.getElementById("password")
+      , confirm_password = document.getElementById("confirmation");
+
+      var errorContainer, errorDetail;
+
+      function showPassword(e) {
+        if (e.target.checked) {
+          password.type = 'text';
+          confirm_password.type = 'text';
+        } else {
+          password.type = 'password';
+          confirm_password.type = 'password';
+        }
+      }
+
+      function validatePassword() {
+        if (password.value != confirm_password.value) {
+          confirm_password.setCustomValidity("As senhas não são iguais. Tente novamente.");
+        } else {
+          confirm_password.setCustomValidity('');
+        }
+      }
+
+      function register(e) {
+        setLoading(true);
+        e.preventDefault();
+        if (errorContainer) {
+          errorContainer.style.display = 'none';
+        }
+
+        if (errorDetail) {
+          errorDetail.style.display = 'none';
+        }
+
+        var request = new XMLHttpRequest();
+        request.onload = function () {
+          const urlParams = new URLSearchParams(request.responseURL.split('?')[1]);
+          var returnObject = Object.fromEntries(urlParams.entries());
+
+          var span = document.createElement('span');
+          span.innerHTML = request.response;
+          const newXSRFToken = span.querySelector('input[name="X-XSRF-TOKEN"]')
+
+          if (newXSRFToken) {
+            document.querySelector('input[name="X-XSRF-TOKEN"]').value = newXSRFToken.value;
+
+            if (returnObject.warning || returnObject.error) {
+              errorContainer = document.getElementById('error-container');
+              errorDetail = document.getElementById(returnObject.warning);
+              if (!errorDetail) {
+                errorDetail = document.getElementById('invalid_other');
+                if (returnObject.error_description) {
+                  errorDetail = document.getElementById('error_description');
+                  errorDetail.innerText = returnObject.error_description;
+                }
+              }
+              errorContainer.style.display = 'flex';
+              errorDetail.style.display = 'block';
+              setLoading(false);
+            }
+          } else {
+            document.location = request.responseURL;
+          }
+
+        }
+        request.open("POST", e.target.action);
+        request.send(new FormData(e.target));
+      }
+    </script>
+  </body>
+</html>

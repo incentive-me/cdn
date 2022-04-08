@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Erro de acesso Incentive.me</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" />
+    <link href="https://res.cloudinary.com/finnhvman/raw/upload/matter/matter-0.2.2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.11/css/base.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn@1.0.11/css/register.min.css"/>
+    <!--     <link rel="stylesheet" href="/css/base.css"/> -->
+    <!--     <link rel="stylesheet" href="/css/register.css"/> -->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/incentive-me/cdn/favicon.ico" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div th:if="${error}" class="form">
+        <div class="form-title">
+          <label>Erro de acesso Incentive.me</label>
+          <p>Por favor, tente novamente ou entre em contato solicitando ajuda.</p>
+        </div>
+        <div class="error-info">
+          Detalhe do erro:
+          <span th:if="${error}" class="error" th:text="${error}"></span>
+          <span th:if="${error_description}" class="error" th:text="${error_description}"></span>
+        </div>
+      </div>
+
+      <footer>
+        <ul class="footer-buttons">
+          <li><a href="http://ajuda.incentive.me" target="_blank">Ajuda</a></li>
+          <li><a href="https://policies.incentive.me/privacy" target="_blank">Privacidade</a></li>
+          <li><a href="https://policies.incentive.me/tos" target="_blank">Termos</a></li>
+        </ul>
+      </footer>
+    </div>
+  </body>
+</html>
