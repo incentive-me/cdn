@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -39,7 +40,7 @@
             <div class="form-content">
               <div class="form-row" style="margin-top: 12px;">
                 <label class="matter-textfield-outlined" style="margin-right: 5px">
-                  <input type="email" id="sso-email" name="sso-email" autofocus="autofocus" required placeholder=" " automcomplete="email" />
+                  <input type="email" id="sso-email" name="sso-email" autofocus="autofocus" required placeholder=" " automcomplete="email" pattern="^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"/>
                   <span>E-mail</span>
                 </label>
               </div>
@@ -76,7 +77,7 @@
             <div class="form-content">
               <div class="form-row" style="margin-top: 12px;">
                 <label class="matter-textfield-outlined" style="margin-right: 5px">
-                  <input type="email" id="username" name="username" th:autofocus="${identifierFirstLoginEnabled ? 'false' : 'autofocus'}" required placeholder=" " automcomplete="email" th:value="${identifierFirstLoginEnabled ? param.username : ''}" th:readonly="${identifierFirstLoginEnabled}"  pattern="^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"/>
+                  <input type="email" id="username" name="username" th:autofocus="${identifierFirstLoginEnabled ? 'false' : 'autofocus'}" required placeholder=" " automcomplete="email" th:value="${identifierFirstLoginEnabled ? param.username : ''}" th:readonly="${identifierFirstLoginEnabled}"/>
                   <span>E-mail</span>
                 </label>
               </div>
@@ -108,6 +109,16 @@
                   Erro desconhecido. Tente novamente.
                 </p>
                 <p style="margin: 0; display: none;" id="error_description"></p>
+              </div>
+
+              <div th:if="${param.error}" class="error-info error">
+                <svg aria-hidden="true" style="flex-shrink: 0;margin-right: 5px;" fill="currentColor" focusable="false" width="16px" height="16px" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+                </svg>
+                <div>
+                  <p style="margin: 0;" th:text="${error}"></p>
+                  <small th:text="${error_description}"></small>
+                </div>
               </div>
 
               <div id="password-try" class="error-info error"  style="display: none;color: #d99517;">
